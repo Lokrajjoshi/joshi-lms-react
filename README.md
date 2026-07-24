@@ -1,16 +1,41 @@
-# React + Vite
+# Joshi LMS Smart Course Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is created for FSD Lab Exercise 5 and 6.
 
-Currently, two official plugins are available:
+## Live Link
+https://joshi-lms-react.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## GitHub Link
+https://github.com/Lokrajjoshi/joshi-lms-react
 
-## React Compiler
+## About
+This is a simple LMS course explorer made using React. It displays course cards, allows course search, and includes a student enquiry form.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Concepts Used
+- React with Vite
+- Tailwind CSS
+- Axios
+- useState
+- useEffect
+- Props
+- Forms
+- JSON API
 
-## Expanding the ESLint configuration
+## API Used
+Course data is stored in `courses.json`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Raw JSON link:
+https://raw.githubusercontent.com/Lokrajjoshi/joshi-lms-react/refs/heads/main/courses.json
+
+## Main Features
+- Course list display
+- Search courses
+- View course details
+- Student enquiry form
+- Form validation
+- Responsive design
+
+## Run Project
+```bash
+npm install
+npm run dev
