@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Frontend Development",
+    "instructor": "Cynthia T",
+    "duration": "6 Weeks",
+    "level": "Beginner",
+    "category": "Web Development"
+  },
+  {
+    "id": 2,
+    "title": "React Basics",
+    "instructor": "Cynthia T",
+    "duration": "4 Weeks",
+    "level": "Beginner",
+    "category": "React"
+  },
+  {
+    "id": 3,
+    "title": "API Integration",
+    "instructor": "Cynthia T",
+    "duration": "3 Weeks",
+    "level": "Intermediate",
+    "category": "Axios"
+  },
+  {
+    "id": 4,
+    "title": "JavaScript Forms",
+    "instructor": "Cynthia T",
+    "duration": "2 Weeks",
+    "level": "Beginner",
+    "category": "Forms"
+  },
+  {
+    "id": 5,
+    "title": "UI Design with Tailwind",
+    "instructor": "Cynthia T",
+    "duration": "3 Weeks",
+    "level": "Beginner",
+    "category": "Tailwind CSS"
+  },
+  {
+    "id": 6,
+    "title": "Learning Dashboard Basics",
+    "instructor": "Cynthia T",
+    "duration": "5 Weeks",
+    "level": "Beginner",
+    "category": "LMS"
+  }
+]
