@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = "https://raw.githubusercontent.com/Lokrajjoshi/joshi-lms-react/refs/heads/main/courses.json";
+const API_URL = "/courses.json";
 
-async function getCourses() {
-  const response = await axios.get(API_URL);
+async function getCourses(signal) {
+  const response = await axios.get(API_URL, { signal });
   return response.data;
 }
 

@@ -1,82 +1,175 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
+import Hero from "./components/Hero";
+import FeatureHighlights from "./components/FeatureHighlights";
+import CourseToolbar from "./components/CourseToolbar";
 import CourseList from "./components/CourseList";
+import CourseDialog from "./components/CourseDialog";
 import EnquiryForm from "./components/EnquiryForm";
+import Footer from "./components/Footer";
 import getCourses from "./api";
 
 function App() {
   const [courses, setCourses] = useState([]);
+  const [status, setStatus] = useState("loading");
+  const [retryKey, setRetryKey] = useState(0);
   const [searchText, setSearchText] = useState("");
-  const [error, setError] = useState("");
+  const [category, setCategory] = useState("All");
+  const [level, setLevel] = useState("All");
+  const [sortBy, setSortBy] = useState("featured");
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [enquiryCourse, setEnquiryCourse] = useState("");
+  const dialogTriggerRef = useRef(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function loadCourses() {
+      setStatus("loading");
       try {
-        const data = await getCourses();
+        const data = await getCourses(controller.signal);
+        if (!Array.isArray(data)) throw new Error("Invalid course data");
         setCourses(data);
-      } catch {
-        setError("Unable to load courses. Please check API link.");
+        setStatus("success");
+      } catch (error) {
+        if (error.name !== "CanceledError" && error.name !== "AbortError") {
+          setStatus("error");
+        }
       }
     }
 
     loadCourses();
-  }, []);
+    return () => controller.abort();
+  }, [retryKey]);
 
- const filteredCourses = courses.filter((course) => {
-  const search = searchText.toLowerCase();
-
-  return (
-    course.title.toLowerCase().includes(search) ||
-    course.category.toLowerCase().includes(search) ||
-    course.level.toLowerCase().includes(search) ||
-    course.instructor.toLowerCase().includes(search)
+  const categories = useMemo(
+    () => ["All", ...new Set(courses.map((course) => course.category))],
+    [courses],
   );
-});
+
+  const levels = useMemo(
+    () => ["All", ...new Set(courses.map((course) => course.level))],
+    [courses],
+  );
+
+  const filteredCourses = useMemo(() => {
+    const search = searchText.trim().toLowerCase();
+    const matches = courses.filter((course) => {
+      const searchableText = [
+        course.title,
+        course.category,
+        course.level,
+        course.instructor,
+        course.description,
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return (
+        (!search || searchableText.includes(search)) &&
+        (category === "All" || course.category === category) &&
+        (level === "All" || course.level === level)
+      );
+    });
+
+    return [...matches].sort((a, b) => {
+      if (sortBy === "title") return a.title.localeCompare(b.title);
+      if (sortBy === "duration") return Number.parseInt(a.duration) - Number.parseInt(b.duration);
+      return Number(b.featured) - Number(a.featured) || a.id - b.id;
+    });
+  }, [courses, searchText, category, level, sortBy]);
+
+  const hasActiveFilters =
+    searchText.trim() !== "" || category !== "All" || level !== "All";
+
+  function clearFilters() {
+    setSearchText("");
+    setCategory("All");
+    setLevel("All");
+  }
+
+  function openCourseDetails(course, trigger) {
+    dialogTriggerRef.current = trigger;
+    setSelectedCourse(course);
+  }
+
+  function closeCourseDetails() {
+    setSelectedCourse(null);
+    requestAnimationFrame(() => dialogTriggerRef.current?.focus());
+  }
+
+  function enquireAbout(course) {
+    setEnquiryCourse(course.title);
+    setSelectedCourse(null);
+    requestAnimationFrame(() => {
+      document.querySelector("#enquiry")?.scrollIntoView({ behavior: "smooth" });
+      dialogTriggerRef.current = null;
+    });
+  }
 
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div className="site-shell">
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <Header />
 
-      <main id="home">
-        <section className="mx-auto max-w-6xl px-6 pt-10">
-          <div className="rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white shadow-lg">
-            <p className="text-sm font-medium text-blue-100">React Lab 5 & 6</p>
-            <h1 className="mt-2 text-4xl font-bold">Joshi LMS Smart Course Explorer</h1>
-            <p className="mt-3 max-w-2xl text-blue-100">
-              Explore courses, search by category, and submit a student enquiry using React, Axios, Hooks, Forms, Vite and Tailwind CSS.
-            </p>
+      <main id="main-content">
+        <Hero courseCount={courses.length || 6} />
+        <FeatureHighlights />
+
+        <section className="course-section section" id="courses" aria-labelledby="courses-title">
+          <div className="container">
+            <div className="section-heading">
+              <div>
+                <span className="eyebrow">Course library</span>
+                <h2 id="courses-title">Find your next skill</h2>
+                <p>Explore focused, practical courses designed to turn concepts into confidence.</p>
+              </div>
+              <a className="text-link desktop-only" href="#enquiry">
+                Need guidance choosing?
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <CourseToolbar
+              searchText={searchText}
+              setSearchText={setSearchText}
+              category={category}
+              setCategory={setCategory}
+              level={level}
+              setLevel={setLevel}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              categories={categories}
+              levels={levels}
+              resultCount={filteredCourses.length}
+              hasActiveFilters={hasActiveFilters}
+              clearFilters={clearFilters}
+            />
+
+            <CourseList
+              courses={filteredCourses}
+              status={status}
+              hasActiveFilters={hasActiveFilters}
+              clearFilters={clearFilters}
+              retry={() => setRetryKey((key) => key + 1)}
+              onViewDetails={openCourseDetails}
+            />
           </div>
         </section>
 
-        <section className="mx-auto mt-6 grid max-w-6xl gap-4 px-6 md:grid-cols-3">
-          <div className="rounded-2xl bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-500">Data Source</p>
-            <h3 className="mt-1 text-xl font-bold text-slate-900">GitHub JSON API</h3>
-          </div>
-
-          <div className="rounded-2xl bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-500">Hooks Used</p>
-            <h3 className="mt-1 text-xl font-bold text-slate-900">useState + useEffect</h3>
-          </div>
-
-          <div className="rounded-2xl bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-500">Main Feature</p>
-            <h3 className="mt-1 text-xl font-bold text-slate-900">Course Enquiry Form</h3>
-          </div>
-        </section>
-
-        <SearchBar searchText={searchText} setSearchText={setSearchText} />
-
-        {error && (
-          <p className="mx-auto mt-6 max-w-6xl rounded-xl bg-red-50 px-6 py-4 text-red-600">
-            {error}
-          </p>
-        )}
-
-        <CourseList courses={filteredCourses} />
-        <EnquiryForm />
+        <EnquiryForm
+          key={enquiryCourse || "general-enquiry"}
+          courses={courses}
+          initialCourse={enquiryCourse}
+        />
       </main>
+
+      <Footer />
+      <CourseDialog
+        course={selectedCourse}
+        onClose={closeCourseDetails}
+        onEnquire={enquireAbout}
+      />
     </div>
   );
 }

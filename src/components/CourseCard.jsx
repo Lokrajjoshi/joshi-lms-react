@@ -1,40 +1,42 @@
-import { useState } from "react";
+import Icon from "./Icon";
 
-function CourseCard({ course }) {
-  const [showDetails, setShowDetails] = useState(false);
-
+function CourseCard({ course, onViewDetails }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <div className="flex items-start justify-between gap-3">
-        <h3 className="text-lg font-bold text-slate-900">{course.title}</h3>
-        <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
-          {course.category}
+    <article className="course-card">
+      <div className={`course-art course-art-${course.accent}`}>
+        <span className="course-art-grid" aria-hidden="true" />
+        <span className="course-icon">
+          <Icon name={course.icon} size={30} strokeWidth={1.6} />
         </span>
+        {course.featured && <span className="featured-badge">Popular</span>}
+        <span className="art-code" aria-hidden="true">{course.artLabel}</span>
       </div>
 
-      <p className="mt-3 text-sm text-slate-600">
-        <b>Instructor:</b> {course.instructor}
-      </p>
-      <p className="text-sm text-slate-600">
-        <b>Duration:</b> {course.duration}
-      </p>
-      <p className="text-sm text-slate-600">
-        <b>Level:</b> {course.level}
-      </p>
+      <div className="course-card-body">
+        <div className="course-badges">
+          <span>{course.category}</span>
+          <span className="level-badge">{course.level}</span>
+        </div>
+        <h3>{course.title}</h3>
+        <p className="course-description">{course.description}</p>
 
-      {showDetails && (
-        <p className="mt-3 rounded-xl bg-slate-50 p-3 text-sm text-slate-600">
-          This course helps students understand {course.category} concepts through simple practical examples.
-        </p>
-      )}
+        <div className="course-meta">
+          <span><Icon name="user" size={16} />{course.instructor}</span>
+          <span><Icon name="clock" size={16} />{course.duration}</span>
+        </div>
 
-      <button
-        onClick={() => setShowDetails(!showDetails)}
-        className="mt-5 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
-      >
-        {showDetails ? "Hide Details" : "View Details"}
-      </button>
-    </div>
+        <div className="course-card-actions">
+          <button
+            className="button button-dark"
+            type="button"
+            onClick={(event) => onViewDetails(course, event.currentTarget)}
+          >
+            View course
+            <Icon name="arrow-up-right" size={17} />
+          </button>
+        </div>
+      </div>
+    </article>
   );
 }
 
