@@ -5,6 +5,7 @@ import FeatureHighlights from "./components/FeatureHighlights";
 import CourseToolbar from "./components/CourseToolbar";
 import CourseList from "./components/CourseList";
 import CourseDialog from "./components/CourseDialog";
+import StudentManagement from "./components/StudentManagement";
 import EnquiryForm from "./components/EnquiryForm";
 import Footer from "./components/Footer";
 import getCourses from "./api";
@@ -156,6 +157,8 @@ function App() {
             />
           </div>
         </section>
+
+        <StudentManagement courses={courses} />
 
         <EnquiryForm
           key={enquiryCourse || "general-enquiry"}

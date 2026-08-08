@@ -1,41 +1,38 @@
-# Joshi LMS Smart Course Explorer
+# Joshi LMS
 
-This project is created for FSD Lab Exercise 5 and 6.
+A responsive Learning Management System built with React, Vite, Express and MongoDB.
 
-## Live Link
-https://joshi-lms-react.vercel.app
+## Features
 
-## GitHub Link
-https://github.com/Lokrajjoshi/joshi-lms-react
+- Course search, filtering and sorting
+- Course details dialog and enquiry form
+- Student registration with validation and photo preview
+- Local object CRUD with localStorage
+- REST API and MongoDB student CRUD
+- Responsive layout for mobile, tablet and desktop
 
-## About
-This is a simple LMS course explorer made using React. It displays course cards, allows course search, and includes a student enquiry form.
+## Tech stack
 
-## Concepts Used
-- React with Vite
+- React and Vite
 - Tailwind CSS
 - Axios
-- useState
-- useEffect
-- Props
-- Forms
-- JSON API
+- Node.js and Express
+- MongoDB and Mongoose
 
-## API Used
-Course data is stored in `courses.json`.
+## Run locally
 
-Raw JSON link:
-https://raw.githubusercontent.com/Lokrajjoshi/joshi-lms-react/refs/heads/main/courses.json
-
-## Main Features
-- Course list display
-- Search courses
-- View course details
-- Student enquiry form
-- Form validation
-- Responsive design
-
-## Run Project
 ```bash
 npm install
 npm run dev
+```
+
+Frontend: `http://127.0.0.1:5173`
+
+API: `http://localhost:5000/api/students`
+
+Copy `.env.example` to `.env` before starting the MongoDB API.
+
+## Links
+
+- [Live site](https://joshi-lms-react.vercel.app)
+- [GitHub repository](https://github.com/Lokrajjoshi/joshi-lms-react)

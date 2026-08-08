@@ -16,6 +16,8 @@ function Footer() {
             <strong>Quick links</strong>
             <a href="#home">Home</a>
             <a href="#courses">Courses</a>
+            <a href="#register">Student registration</a>
+            <a href="#students">Student management</a>
             <a href="#enquiry">Course enquiry</a>
           </div>
         </div>

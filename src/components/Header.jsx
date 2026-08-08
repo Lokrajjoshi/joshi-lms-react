@@ -4,6 +4,8 @@ import Icon from "./Icon";
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "Courses", href: "#courses" },
+  { label: "Registration", href: "#register" },
+  { label: "Students", href: "#students" },
   { label: "Enquiry", href: "#enquiry" },
 ];
 
