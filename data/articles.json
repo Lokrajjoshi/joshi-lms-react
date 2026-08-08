@@ -1,0 +1,12 @@
+[
+  {
+    "id": 2,
+    "name": "Node.js File System",
+    "description": "The built-in fs module reads and writes data stored in local files."
+  },
+  {
+    "id": 3,
+    "name": "Express REST API",
+    "description": "GET, POST, PUT and DELETE routes connect the LMS interface to stored data."
+  }
+]

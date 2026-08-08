@@ -9,6 +9,7 @@ A responsive Learning Management System built with React, Vite, Express and Mong
 - Student registration with validation and photo preview
 - Local object CRUD with localStorage
 - REST API and MongoDB student CRUD
+- Node.js file-system article CRUD
 - Responsive layout for mobile, tablet and desktop
 
 ## Tech stack
@@ -28,7 +29,7 @@ npm run dev
 
 Frontend: `http://127.0.0.1:5173`
 
-API: `http://localhost:5000/api/students`
+APIs: `http://localhost:5000/api/students` and `http://localhost:5000/api/articles`
 
 Copy `.env.example` to `.env` before starting the MongoDB API.
 

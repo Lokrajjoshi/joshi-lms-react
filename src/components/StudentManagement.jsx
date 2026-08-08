@@ -187,6 +187,11 @@ function StudentManagement({ courses }) {
     reader.readAsDataURL(file);
   };
 
+  const removePhoto = () => {
+    setFormData((current) => ({ ...current, profileImage: "" }));
+    setErrors((current) => ({ ...current, profileImage: "" }));
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const validationErrors = validateStudent(formData, students, editingId);
@@ -272,7 +277,10 @@ function StudentManagement({ courses }) {
       <div className="container">
         <div className="mb-9 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
           <div>
-            <span className="eyebrow">FSD Lab 3 + Lab 4</span>
+            <div className="eyebrow-row">
+              <span className="eyebrow">Student registration</span>
+              <span className="section-number">3</span>
+            </div>
             <h2 className="mb-3 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl" id="registration-title">
               Student registration and management
             </h2>
@@ -360,23 +368,30 @@ function StudentManagement({ courses }) {
 
               <div className="mb-5 md:col-span-2">
                 <label className={labelClass} htmlFor="profileImage">Profile photo</label>
-                <label
-                  className="flex cursor-pointer flex-col gap-4 rounded-xl border-2 border-dashed border-indigo-200 bg-indigo-50/60 p-4 transition hover:border-indigo-400 hover:bg-indigo-50 sm:flex-row sm:items-center"
-                  htmlFor="profileImage"
-                >
-                  {formData.profileImage ? (
-                    <img className="h-20 w-20 rounded-2xl object-cover" src={formData.profileImage} alt="Selected profile preview" />
-                  ) : (
-                    <span className="grid h-20 w-20 place-items-center rounded-2xl bg-indigo-100 text-indigo-600"><Icon name="user" size={30} /></span>
+                <div className="grid gap-3">
+                  <label
+                    className="flex cursor-pointer flex-col gap-4 rounded-xl border-2 border-dashed border-indigo-200 bg-indigo-50/60 p-4 transition hover:border-indigo-400 hover:bg-indigo-50 sm:flex-row sm:items-center"
+                    htmlFor="profileImage"
+                  >
+                    {formData.profileImage ? (
+                      <img className="h-20 w-20 rounded-2xl object-cover" src={formData.profileImage} alt="Selected profile preview" />
+                    ) : (
+                      <span className="grid h-20 w-20 place-items-center rounded-2xl bg-indigo-100 text-indigo-600"><Icon name="user" size={30} /></span>
+                    )}
+                    <div>
+                      <span className="inline-flex min-h-10 items-center rounded-lg bg-indigo-600 px-4 text-sm font-bold text-white shadow-sm">
+                        {formData.profileImage ? "Change profile photo" : "Upload profile photo"}
+                      </span>
+                      <p className="mt-2 text-xs text-slate-500">Click anywhere in this box · JPG or PNG · Maximum 2 MB</p>
+                    </div>
+                    <input className="sr-only" key={formData.profileImage ? "selected" : "empty"} id="profileImage" type="file" accept="image/jpeg,image/png" onChange={handlePhoto} />
+                  </label>
+                  {formData.profileImage && (
+                    <button className="w-fit text-sm font-bold text-red-600 hover:text-red-700" type="button" onClick={removePhoto}>
+                      Remove selected photo
+                    </button>
                   )}
-                  <div>
-                    <span className="inline-flex min-h-10 items-center rounded-lg bg-indigo-600 px-4 text-sm font-bold text-white shadow-sm">
-                      {formData.profileImage ? "Change profile photo" : "Upload profile photo"}
-                    </span>
-                    <p className="mt-2 text-xs text-slate-500">Click anywhere in this box · JPG or PNG · Maximum 2 MB</p>
-                  </div>
-                  <input className="sr-only" key={formData.profileImage ? "selected" : "empty"} id="profileImage" type="file" accept="image/jpeg,image/png" onChange={handlePhoto} />
-                </label>
+                </div>
                 {errors.profileImage && <p className="field-error mt-2">{errors.profileImage}</p>}
               </div>
 
@@ -401,10 +416,10 @@ function StudentManagement({ courses }) {
 
           <aside className="h-fit rounded-3xl bg-slate-950 p-6 text-white xl:sticky xl:top-24">
             <span className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-indigo-500"><Icon name="users" size={24} /></span>
-            <h3 className="text-xl font-bold">What this section demonstrates</h3>
+            <h3 className="text-xl font-bold">What you can manage</h3>
             <div className="mt-6 grid gap-4 text-sm text-slate-300">
-              <p><strong className="text-white">Lab 3:</strong> Complete registration form, validation, photo preview and localStorage.</p>
-              <p><strong className="text-white">Lab 4:</strong> Create, Read, Update and Delete using objects, REST API and optional MongoDB.</p>
+              <p><strong className="text-white">Registration:</strong> Complete student details, validate inputs and preview a profile photo.</p>
+              <p><strong className="text-white">Student records:</strong> Create, view, update and delete records using local or database storage.</p>
               <p><strong className="text-white">Current mode:</strong> {isApi ? "Express API + MongoDB" : "Browser array + localStorage"}</p>
             </div>
           </aside>
@@ -413,7 +428,10 @@ function StudentManagement({ courses }) {
         <div className="mt-16 scroll-mt-24" id="students">
           <div className="mb-7 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <span className="eyebrow">FSD Lab 4 CRUD</span>
+              <div className="eyebrow-row">
+                <span className="eyebrow">Student records &amp; CRUD</span>
+                <span className="section-number">4</span>
+              </div>
               <h2 className="text-3xl font-bold tracking-tight text-slate-900">Registered students</h2>
             </div>
             <p className="text-sm font-semibold text-slate-500">{students.length} {students.length === 1 ? "record" : "records"} · {isApi ? "REST API" : "Local storage"}</p>

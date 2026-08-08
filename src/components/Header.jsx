@@ -6,6 +6,7 @@ const navItems = [
   { label: "Courses", href: "#courses" },
   { label: "Registration", href: "#register" },
   { label: "Students", href: "#students" },
+  { label: "File System", href: "#file-system" },
   { label: "Enquiry", href: "#enquiry" },
 ];
 

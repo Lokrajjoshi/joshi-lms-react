@@ -6,6 +6,7 @@ import CourseToolbar from "./components/CourseToolbar";
 import CourseList from "./components/CourseList";
 import CourseDialog from "./components/CourseDialog";
 import StudentManagement from "./components/StudentManagement";
+import FileSystemDemo from "./components/FileSystemDemo";
 import EnquiryForm from "./components/EnquiryForm";
 import Footer from "./components/Footer";
 import getCourses from "./api";
@@ -159,6 +160,8 @@ function App() {
         </section>
 
         <StudentManagement courses={courses} />
+
+        <FileSystemDemo />
 
         <EnquiryForm
           key={enquiryCourse || "general-enquiry"}
