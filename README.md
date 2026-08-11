@@ -12,6 +12,10 @@ A responsive Learning Management System built with React, Vite, Express and Mong
 - Node.js file-system article CRUD
 - Responsive layout for mobile, tablet and desktop
 
+## Lab 8 - RESTful Services
+
+Student CRUD REST API using Express, MongoDB and Mongoose with GET, POST, PUT and DELETE operations.
+
 ## Tech stack
 
 - React and Vite
