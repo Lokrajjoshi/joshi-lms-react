@@ -1,28 +1,24 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# dependencies
+node_modules/
 
-node_modules
-dist
-dist-ssr
-output/
-tmp/
-*.local
-.env
-babel.json
+# Next.js build output
+.next/
+out/
 
-# Editor directories and files
+# local environment files
+.env*
+!.env.example
+
+# editor and operating system files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+*.log
+
+# legacy local build files
+dist/
+output/
+tmp/
+_lab9-10-fix/
+babel.json

@@ -1,27 +1,12 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import nextPlugin from "@next/eslint-plugin-next";
 
-export default defineConfig([
-  globalIgnores(['dist']),
+export default [
   {
-    files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      globals: globals.browser,
-      parserOptions: { ecmaFeatures: { jsx: true } },
-    },
+    ignores: [".next/**", "node_modules/**", "dist/**", "src/**", "server/**", "_lab9-10-fix/**"],
   },
   {
-    files: ['server/**/*.js'],
-    languageOptions: {
-      globals: globals.node,
-    },
+    files: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "lib/**/*.ts", "models/**/*.ts"],
+    plugins: { "@next/next": nextPlugin },
+    rules: { ...nextPlugin.configs.recommended.rules, ...nextPlugin.configs["core-web-vitals"].rules },
   },
-])
+];

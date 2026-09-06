@@ -1,43 +1,46 @@
 # Joshi LMS
 
-A responsive Learning Management System built with React, Vite, Express and MongoDB.
+Joshi LMS is a portfolio-ready Learning Management System that helps learners discover courses, save a personal learning path, track progress, and send persistent enquiries.
 
-## Features
+## Why this project exists
 
-- Course search, filtering and sorting
-- Course details dialog and enquiry form
-- Student registration with validation and photo preview
-- Local object CRUD with localStorage
-- REST API and MongoDB student CRUD
-- Node.js file-system article CRUD
-- Responsive layout for mobile, tablet and desktop
+This project is designed as a polished full-stack product rather than a collection of classroom exercises. It focuses on a clear learning experience, strong responsive UI, practical state management, and deployable server-side features.
 
-## Lab 8 - RESTful Services
+## Key features
 
-Student CRUD REST API using Express, MongoDB and Mongoose with GET, POST, PUT and DELETE operations.
+- Course catalogue with keyword search and category filtering
+- Detailed learning paths and outcome-focused course information
+- Browser-persistent saved courses and progress tracking
+- JSON import and export for a learner's personal plan
+- Responsive dashboard-style interface for mobile, tablet, and desktop
+- Accessible form feedback and clear empty/success/error states
+- Server-rendered course data with Next.js App Router
+- Validated enquiry API route that stores messages in MongoDB
 
-## Tech stack
+## Built with
 
-- React and Vite
-- Tailwind CSS
-- Axios
-- Node.js and Express
+- Next.js App Router
+- TypeScript and React
 - MongoDB and Mongoose
+- Tailwind CSS
+- Vercel deployment
 
 ## Run locally
 
-```bash
-npm install
-npm run dev
-```
+1. Install dependencies with `npm install`.
+2. Create `.env.local` and add a MongoDB connection string:
 
-Frontend: `http://127.0.0.1:5173`
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   ```
 
-APIs: `http://localhost:5000/api/students` and `http://localhost:5000/api/articles`
+3. Start the app with `npm run dev`.
+4. Open `http://localhost:3000`.
 
-Copy `.env.example` to `.env` before starting the MongoDB API.
+## Deploy to Vercel
 
-## Links
+Import the repository in Vercel, then add `MONGODB_URI` under Project Settings → Environment Variables for Production and Preview. Every push to the selected GitHub branch will trigger a new deployment.
 
-- [Live site](https://joshi-lms-react.vercel.app)
-- [GitHub repository](https://github.com/Lokrajjoshi/joshi-lms-react)
+## Resume description
+
+Built a full-stack Learning Management System using Next.js, TypeScript, MongoDB, and Vercel. Implemented a responsive course discovery experience, personal progress tracking with JSON import/export, server-side rendering, API validation, and persistent enquiry storage.
