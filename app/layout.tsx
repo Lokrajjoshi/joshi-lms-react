@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Joshi LMS | Build skills with direction",
-  description: "A modern learning management system built with Next.js, TypeScript and MongoDB.",
+  description: "A modern learning management system for focused, guided learning.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
