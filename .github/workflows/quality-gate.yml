@@ -1,0 +1,40 @@
+name: Web and API Quality Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint frontend and server
+        run: npm run lint
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Verify API surface is documented
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f server/server.js
+          grep -q '/api/students' README.md
+          grep -q '/api/articles' README.md
