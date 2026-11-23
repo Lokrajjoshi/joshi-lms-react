@@ -2,6 +2,8 @@
 
 A responsive Learning Management System built with React, Vite, Express and MongoDB.
 
+> **Engineering signal:** a full-stack student workflow that connects searchable learning content, validated registration, CRUD APIs, and responsive delivery in one practical system.
+
 ## Features
 
 - Course search, filtering and sorting
@@ -12,9 +14,28 @@ A responsive Learning Management System built with React, Vite, Express and Mong
 - Node.js file-system article CRUD
 - Responsive layout for mobile, tablet and desktop
 
-## Lab 8 - RESTful Services
+## Lab 8 — RESTful Services
 
 Student CRUD REST API using Express, MongoDB and Mongoose with GET, POST, PUT and DELETE operations.
+
+## Quality and validation loop
+
+The project is validated as a workflow, not only as a UI:
+
+1. **Input validation** — verify required student fields and reject malformed requests.
+2. **CRUD contract** — confirm GET, POST, PUT and DELETE responses for the student resource.
+3. **Persistence check** — verify that MongoDB writes can be read back after the request completes.
+4. **Regression pass** — retest course filtering, enquiry flow, local CRUD and responsive layouts after API changes.
+5. **Evidence** — record the endpoint, expected result and observed result for repeatable review.
+
+Suggested API smoke checks:
+
+| Endpoint | Method | Expected signal |
+| --- | --- | --- |
+| `/api/students` | GET | Returns the student collection |
+| `/api/students` | POST | Creates a validated student |
+| `/api/students/:id` | PUT | Updates an existing student |
+| `/api/students/:id` | DELETE | Removes the selected student |
 
 ## Tech stack
 
